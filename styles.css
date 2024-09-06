@@ -1,0 +1,174 @@
+/* General reset and styling */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Grid container for layout */
+.grid-container {
+  display: grid;
+  height: 100vh;
+  width: 100%;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+}
+
+/* Header styling */
+.header {
+  grid-row: 1;
+  background-color: #f4f4f4;
+  padding: 10px;
+}
+
+.navbar {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.item {
+  color: blue;
+  font-size: 18px;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.item:hover {
+  color: rgb(232, 44, 245);
+}
+
+.item:active {
+  color: black;
+}
+
+/* Button styling */
+.button {
+  padding: 15px 25px;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  color: #fff;
+  background-color: blue;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px #999;
+  display: block;
+  margin: 20px auto;
+}
+
+.button:hover {
+  background-color: rgb(232, 44, 245);
+}
+
+.button:active {
+  background-color: rgb(232, 44, 245);
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
+/* Game section styling */
+.game-section {
+  padding: 20px;
+  margin: 20px auto;
+  border: 2px solid #cccccc;
+  border-radius: 10px;
+  background-color: white;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.game-section h2 {
+  font-size: 28px;
+  color: blue;
+}
+
+.game-section p {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Choices container for Pick the Correct Spelling */
+#word-choice-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.word-choice {
+  font-size: 20px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 2px solid blue;
+  border-radius: 5px;
+  padding: 10px;
+  width: 60%;
+  text-align: center;
+}
+
+.word-choice:hover {
+  background-color: rgb(232, 44, 245);
+  color: white;
+}
+
+.word-choice.selected {
+  background-color: blue;
+  color: white;
+}
+
+/* Input fields and select elements */
+input[type="number"], select {
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 2px solid blue;
+  outline: none;
+  text-align: center;
+  margin-top: 10px;
+}
+
+input[type="number"]:focus, select:focus {
+  border-color: rgb(232, 44, 245);
+}
+
+/* Result messages */
+.result-message {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+/* Footer styling */
+.footer {
+  background-color: #f4f4f4;
+  padding: 10px;
+  text-align: center;
+}
+
+.footer-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.footer-nav ul li a {
+  color: blue;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.footer-nav ul li a:hover {
+  color: rgb(232, 44, 245);
+}
+
+.footer-copyright {
+  margin-top: 10px;
+}
