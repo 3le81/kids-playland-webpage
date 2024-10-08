@@ -4,18 +4,28 @@ const words = [
 ];
 
 let spellingAttempts = 0;
-const maxSpellingAttempts = 5;
+const maxSpellingAttempts = 6;
+let correctAnswers = 0;
 
 // Function to start the Spelling Game
 function startSpellingGame() {
+    spellingAttempts = 0; // Reset for new game
+    correctAnswers = 0;   // Reset correct answers count
+
+    nextSpellingQuestion(); // Start the first round
+}
+
+// Function to display next spelling question
+function nextSpellingQuestion() {
     spellingAttempts++;
 
     if (spellingAttempts > maxSpellingAttempts) {
-        document.getElementById('spelling-result').textContent = `Game Over! You guessed ${spellingAttempts - 1} words correctly out of ${maxSpellingAttempts}.`;
+        // Game over, show results
+        document.getElementById('spelling-result').textContent = `Game Over! You guessed ${correctAnswers} out of ${maxSpellingAttempts} correctly.`;
         document.getElementById('spelling-result').style.color = 'blue';
-        document.getElementById('start-spelling-button').style.display = 'none';
+        document.getElementById('start-spelling-button').textContent = 'Start Again';
+        document.getElementById('start-spelling-button').style.display = 'block';
         document.getElementById('word-choice-container').style.display = 'none'; // Hide choices
-        spellingAttempts = 0; // Reset attempts for future games
         return;
     }
 
@@ -72,11 +82,19 @@ function checkSpelling(selectedWord, correctWord) {
     if (selectedWord === correctWord) {
         result.textContent = 'Correct!';
         result.style.color = 'green';
+        correctAnswers++; // Increase correct answer count
     } else {
-        result.textContent = 'Wrong! Try again.';
+        result.textContent = 'Wrong! Try the next word.';
         result.style.color = 'red';
     }
+
+    // Proceed to the next question after a short delay
+    setTimeout(nextSpellingQuestion, 1000); // Delay of 1 second before moving to the next question
 }
+
+// Add event listeners
+document.getElementById('start-spelling-button').addEventListener('click', startSpellingGame);
+
 
 // Times Table Game Variables
 let multiplicationNumber;
