@@ -78,7 +78,7 @@
   background-color: white;
   width: 80%;
   max-width: 800px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -116,11 +116,6 @@
   color: white;
 }
 
-.word-choice.selected {
-  background-color: blue;
-  color: white;
-}
-
 /* Input fields and select elements */
 input[type="number"], select {
   padding: 10px;
@@ -149,26 +144,22 @@ input[type="number"]:focus, select:focus {
   text-align: center;
 }
 
-.footer-nav ul {
-  list-style: none;
-  padding: 0;
+/* Game-specific buttons */
+#start-spelling-button {
+  margin-top: 20px;
 }
 
-.footer-nav ul li {
-  display: inline;
-  margin: 0 10px;
+#start-guess-button {
+  margin-top: 20px;
 }
 
-.footer-nav ul li a {
-  color: blue;
-  text-decoration: none;
-  font-size: 16px;
-}
+/* Responsive design */
+@media (max-width: 768px) {
+  .game-section {
+      width: 90%;
+  }
 
-.footer-nav ul li a:hover {
-  color: rgb(232, 44, 245);
-}
-
-.footer-copyright {
-  margin-top: 10px;
+  .word-choice {
+      width: 100%;
+  }
 }
