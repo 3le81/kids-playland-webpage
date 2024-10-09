@@ -220,60 +220,69 @@ function resetGame() {
 }
 
 
+// GUESS THE NUMBER GAME
+
 // Guess the Number Variables
 let randomNumber;
 let attempts;
 const maxAttempts = 6;
 
-// Function to start guess number game
+// Function to start the Guess the Number game
 function startGuessGame() {
-    randomNumber = Math.floor(Math.random() * 100) + 1;
-    attempts = maxAttempts;
-    document.getElementById('guess-result').textContent = `You have ${attempts} chances left.`;
+    randomNumber = Math.floor(Math.random() * 100) + 1; // Generate random number between 1 and 100
+    attempts = maxAttempts; // Set max attempts
+    document.getElementById('guess-result').textContent = `You have ${attempts} chances left.`; // Display remaining chances
     document.getElementById('guess-input').value = ''; // Clear input field
-    document.getElementById('guess-number-game').style.display = 'block'; // Corrected
-    document.getElementById('start-guess-button').style.display = 'none';
+    document.getElementById('guess-input').style.display = 'inline-block'; // Show input field
+    document.getElementById('submit-guess-button').style.display = 'inline-block'; // Show submit button
+    document.getElementById('start-guess-button').style.display = 'none'; // Hide start button
 }
 
-// Function to handle guess
+// Function to handle the player's guess
 function handleGuess() {
     const guessInput = document.getElementById('guess-input');
-    const guess = parseInt(guessInput.value);
-    const result = document.getElementById('guess-result');
+    const guess = parseInt(guessInput.value); // Get the player's guess
+    const result = document.getElementById('guess-result'); // Get result display
 
-    if (isNaN(guess)) {
-        result.textContent = 'Please enter a valid number.';
+    // Check if input is a valid number
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+        result.textContent = 'Please enter a valid number between 1 and 100.';
+        result.style.color = 'red';
         return;
     }
 
-    attempts--;
+    attempts--; // Decrease attempts after each guess
 
+    // Check if the guess is correct
     if (guess === randomNumber) {
-        result.textContent = `Congratulations! You guessed the number!`;
+        result.textContent = `Congratulations! You guessed the number in ${maxAttempts - attempts} attempt(s)!`;
         result.style.color = 'green';
-        document.getElementById('start-guess-button').style.display = 'block';
+        endGuessGame();
     } else if (attempts === 0) {
-        result.textContent = `Game Over! The number was ${randomNumber}.`;
+        result.textContent = `Game Over! The correct number was ${randomNumber}.`;
         result.style.color = 'red';
+        endGuessGame();
     } else {
-        let hint = guess < randomNumber ? 'higher' : 'lower';
-        result.textContent = `Try ${hint}. You have ${attempts} chances left.`;
+        // Provide hints and remaining attempts
+        const hint = guess < randomNumber ? 'higher' : 'lower';
+        result.textContent = `Try guessing ${hint}. You have ${attempts} chance(s) left.`;
         result.style.color = 'orange';
     }
+
+    guessInput.value = ''; // Clear the input for the next guess
 }
 
-// Function to shuffle an array using Fisher-Yates Shuffle
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
+// Function to end the Guess the Number game
+function endGuessGame() {
+    // Hide input and submit button after the game ends
+    document.getElementById('guess-input').style.display = 'none';
+    document.getElementById('submit-guess-button').style.display = 'none';
+
+    // Show the "Start Again" button to reset the game
+    document.getElementById('start-guess-button').style.display = 'inline-block';
+    document.getElementById('start-guess-button').textContent = 'Start Again';
 }
 
 // Add event listeners
-document.getElementById('start-spelling-button').addEventListener('click', startSpellingGame);
-document.querySelector('#times-table-form button').addEventListener('click', startMultiplicationGame);
-document.querySelector('#question-container button').addEventListener('click', checkAnswer);
-document.querySelector('#guess-number-game button').addEventListener('click', handleGuess);
 document.getElementById('start-guess-button').addEventListener('click', startGuessGame);
+document.getElementById('submit-guess-button').addEventListener('click', handleGuess);
