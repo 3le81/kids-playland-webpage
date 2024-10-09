@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <div class="grid-container">
-        <!-- Header -->
         <header class="header">
             <nav>
                 <ul class="navbar">
@@ -19,7 +17,6 @@
             </nav>
         </header>
 
-        <!-- Main Content -->
         <main>
             <!-- Spelling Game Section -->
             <section class="game-section" id="spelling-game">
@@ -27,41 +24,39 @@
                 <p>Select the correct spelling!</p>
                 <div id="word-choice-container"></div>
                 <p id="spelling-result" class="result-message"></p>
-                <button id="start-spelling-button" class="button" onclick="startGame()">Start Spelling Game</button>
-            </section>
+                <button id="start-spelling-button" class="button">Start Spelling Game</button>
+            </section>            
 
-            <!-- Times Table Game Section -->
-            <section class="game-section" id="times-table-game">
-                <h2>Times Table Game</h2>
-                <p>Select a number and solve the multiplication!</p>
-                <form id="times-table-form">
-                    <select id="number-choice">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                    <button type="button" class="button" onclick="startMultiplicationGame()">Start</button>
-                </form>
-                <div id="question-container" style="display:none;">
-                    <p id="question"></p>
-                    <input type="number" id="answer" placeholder="Your answer" />
-                    <button class="button" onclick="checkAnswer()">Submit</button>
-                    <p id="multiplication-result" class="result-message"></p>
-                </div>
-            </section>
-
-            <!-- Guess the Number Game Section -->
-            <section class="game-section" id="guess-number-game">
-                <h2>Guess the Number Game</h2>
-                <p>Guess a number between 1 and 100!</p>
-                <input type="number" id="guess-input" placeholder="Enter your guess" />
-                <button class="button" onclick="handleGuess()">Submit Guess</button>
-                <p id="guess-result" class="result-message"></p>
-                <button id="start-guess-button" class="button" onclick="startGuessGame()">Start Guessing Game</button>
-            </section>
+          <!-- Times Table Game Section -->
+<section class="game-section" id="times-table-game">
+    <h2>Times Table Game</h2>
+    <form id="times-table-form">
+        <label for="number-choice">Choose a number:</label>
+        <input type="number" id="number-choice" min="1" max="12" required>
+        <button type="button" id="start-multiplication-button" class="button">Start</button>
+    </form>
+    <div id="question-container" style="display:none;">
+        <p id="question"></p>
+        <input type="number" id="answer" placeholder="Your answer">
+        <!-- Corrected the button to trigger the checkAnswer function -->
+        <button type="button" id="submit-answer-button" class="button">Submit</button>
+    </div>
+    <p id="multiplication-result" class="result-message"></p>
+    <!-- This button is to restart the game, hidden initially -->
+    <button id="restart-multiplication-button" class="button" style="display: none;">Start Again</button>
+</section>
+          
+        <!-- Guess the Number Game Section -->
+<section class="game-section" id="guess-number-game">
+    <h2>Guess the Number Game</h2>
+    <p>Guess a number between 1 and 100!</p>
+    <input type="number" id="guess-input" placeholder="Enter your guess" />
+    <button class="button" id="submit-guess-button">Submit Guess</button>
+    <p id="guess-result" class="result-message"></p>
+    <button id="start-guess-button" class="button">Start Guessing Game</button>
+</section>
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
             <p>Created by <a href="https://www.linkedin.com/in/elena-pagano-24000075/" target="_blank">Elena Pagano</a> © 2024 Kids Playland</p>
         </footer>
