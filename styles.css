@@ -17,9 +17,17 @@
 
 /* Header styling */
 .header {
-  grid-row: 1;
+  display: flex;              
+  justify-content: space-between;
+  align-items: center;
   background-color: #f4f4f4;
   padding: 10px;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
 }
 
 .navbar {
@@ -45,16 +53,16 @@
 
 /* Button styling */
 .button {
-  padding: 15px 25px;
-  font-size: 18px;
+  padding: 15px 15px;
+  font-size: 16px;
   text-align: center;
   letter-spacing: 0.1em;
   cursor: pointer;
   color: #fff;
   background-color: blue;
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px #999;
+  border-radius: 8px;
+  box-shadow: 0 3px #999;
   display: block;
   margin: 20px auto;
 }
@@ -77,7 +85,7 @@
   border-radius: 10px;
   background-color: white;
   width: 80%;
-  max-width: 800px;
+  max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
@@ -87,9 +95,13 @@
   color: blue;
 }
 
-.game-section p {
-  font-size: 18px;
+.game-section p,
+.game-section label {
+  font-size: 15px;
   color: #333;
+  margin: 10px;
+  margin-bottom: 0;
+  letter-spacing: 0.3px;
 }
 
 /* Choices container for Pick the Correct Spelling */
@@ -118,9 +130,10 @@
 
 /* Input fields and select elements */
 input[type="number"],
-select {
-  padding: 10px;
-  font-size: 18px;
+select,
+#email-input {
+  padding: 8px;
+  font-size: 14px;
   border-radius: 5px;
   border: 2px solid blue;
   outline: none;
@@ -129,21 +142,49 @@ select {
 }
 
 input[type="number"]:focus,
-select:focus {
+select:focus,
+#email-input:focus {
   border-color: rgb(232, 44, 245);
 }
 
 /* Result messages */
 .result-message {
-  font-size: 20px;
-  margin-top: 20px;
+  font-size: 16px;
+  margin-top: 15px;
+  color: #333;
+}
+
+/* Email Subscription Section Styling */
+
+
+.email-subscription {
+  background-color: #f9f9f9;
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.email-subscription h2 {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.email-subscription p {
+  margin-bottom: 15px;
+}
+
+#subscribe-button {
+  margin-left: 0;  
+  padding: 10px 20px;
 }
 
 /* Footer styling */
 .footer {
   background-color: #f4f4f4;
   padding: 10px;
-  text-align: center;
+  text-align: left;
+  font-size: 14px;
 }
 
 /* Game-specific buttons */
@@ -161,5 +202,9 @@ select:focus {
 
   .word-choice {
     width: 100%;
+  }
+
+  .logo {
+    width: 80px;
   }
 }
