@@ -117,7 +117,8 @@
 }
 
 /* Input fields and select elements */
-input[type="number"], select {
+input[type="number"],
+select {
   padding: 10px;
   font-size: 18px;
   border-radius: 5px;
@@ -127,7 +128,8 @@ input[type="number"], select {
   margin-top: 10px;
 }
 
-input[type="number"]:focus, select:focus {
+input[type="number"]:focus,
+select:focus {
   border-color: rgb(232, 44, 245);
 }
 
@@ -145,10 +147,8 @@ input[type="number"]:focus, select:focus {
 }
 
 /* Game-specific buttons */
-#start-spelling-button {
-  margin-top: 20px;
-}
-
+#start-spelling-button,
+#start-multiplication-button,
 #start-guess-button {
   margin-top: 20px;
 }
@@ -156,10 +156,10 @@ input[type="number"]:focus, select:focus {
 /* Responsive design */
 @media (max-width: 768px) {
   .game-section {
-      width: 90%;
+    width: 90%;
   }
 
   .word-choice {
-      width: 100%;
+    width: 100%;
   }
 }

@@ -1,53 +1,45 @@
 const words = [
-    'Thunderstorm', 'blueberry', 'armchair', 'cupboard', 'whiteboard',
-    'helicopter', 'trousers', 'password', 'wordsearch', 'bathroom'
+    'Thunderstorm', 'Blueberry', 'Armchair', 'Cupboard', 'Whiteboard',
+    'Helicopter', 'Trousers', 'Password', 'Wordsearch', 'Bathroom', 'Necessary', 'Underneath'
 ];
 
 let spellingAttempts = 0;
-const maxSpellingAttempts = 6;
-let correctAnswers = 0;
+let correctAnswers = 0; // Track correct answers
+const maxSpellingAttempts = 6; // Total attempts allowed
 
 // Function to start the Spelling Game
 function startSpellingGame() {
-    spellingAttempts = 0; // Reset for new game
-    correctAnswers = 0;   // Reset correct answers count
+    if (spellingAttempts < maxSpellingAttempts) {
+        const correctWord = words[Math.floor(Math.random() * words.length)];
+        const choices = generateChoices(correctWord);
 
-    nextSpellingQuestion(); // Start the first round
-}
+        const container = document.getElementById('word-choice-container');
+        container.innerHTML = ''; // Clear previous choices
 
-// Function to display next spelling question
-function nextSpellingQuestion() {
-    spellingAttempts++;
+        // Shuffle the choices randomly using Fisher-Yates Shuffle
+        shuffleArray(choices);
 
-    if (spellingAttempts > maxSpellingAttempts) {
-        // Game over, show results
-        document.getElementById('spelling-result').textContent = `Game Over! You guessed ${correctAnswers} out of ${maxSpellingAttempts} correctly.`;
+        choices.forEach(word => {
+            const button = document.createElement('button');
+            button.className = 'word-choice';
+            button.textContent = word;
+            button.onclick = () => checkSpelling(word, correctWord);
+            container.appendChild(button);
+        });
+
+        container.style.display = 'block'; // Show the choices
+        document.getElementById('spelling-result').textContent = '';
+        document.getElementById('start-spelling-button').style.display = 'none'; // Hide start button
+        spellingAttempts++;
+    } else {
+        // Show final result after all attempts
+        document.getElementById('spelling-result').textContent = `Game Over! You guessed ${correctAnswers} out of ${maxSpellingAttempts}.`;
         document.getElementById('spelling-result').style.color = 'blue';
-        document.getElementById('start-spelling-button').textContent = 'Start Again';
-        document.getElementById('start-spelling-button').style.display = 'block';
-        document.getElementById('word-choice-container').style.display = 'none'; // Hide choices
-        return;
+        document.getElementById('start-spelling-button').style.display = 'block'; // Show start button
+        document.getElementById('start-spelling-button').textContent = 'Start Again'; // Change button text
+        spellingAttempts = 0; // Reset for next game
+        correctAnswers = 0; // Reset correct answers
     }
-
-    const correctWord = words[Math.floor(Math.random() * words.length)];
-    const choices = generateChoices(correctWord);
-
-    const container = document.getElementById('word-choice-container');
-    container.innerHTML = ''; // Clear previous choices
-
-    // Shuffle the choices randomly using Fisher-Yates Shuffle
-    shuffleArray(choices);
-
-    choices.forEach(word => {
-        const button = document.createElement('button');
-        button.className = 'word-choice';
-        button.textContent = word;
-        button.onclick = () => checkSpelling(word, correctWord);
-        container.appendChild(button);
-    });
-
-    container.style.display = 'block'; // Show the choices
-    document.getElementById('spelling-result').textContent = '';
 }
 
 // Function to generate choices with one correct word and several misspelled options
@@ -82,54 +74,151 @@ function checkSpelling(selectedWord, correctWord) {
     if (selectedWord === correctWord) {
         result.textContent = 'Correct!';
         result.style.color = 'green';
-        correctAnswers++; // Increase correct answer count
-    } else {
-        result.textContent = 'Wrong! Try the next word.';
-        result.style.color = 'red';
-    }
-
-    // Proceed to the next question after a short delay
-    setTimeout(nextSpellingQuestion, 1000); // Delay of 1 second before moving to the next question
-}
-
-// Add event listeners
-document.getElementById('start-spelling-button').addEventListener('click', startSpellingGame);
-
-
-// Times Table Game Variables
-let multiplicationNumber;
-let multiplicationAnswer;
-
-// Function to start multiplication game
-function startMultiplicationGame() {
-    document.getElementById('times-table-form').style.display = 'none';
-    const number = document.getElementById('number-choice').value;
-    multiplicationNumber = parseInt(number);
-    multiplicationAnswer = Math.floor(Math.random() * 12) + 1;
-
-    // Display question
-    document.getElementById('question-container').style.display = 'block';
-    document.getElementById('question').textContent = `What is ${multiplicationNumber} x ${multiplicationAnswer}?`;
-
-    // Clear the answer input and result message
-    document.getElementById('answer').value = '';
-    document.getElementById('multiplication-result').textContent = '';
-}
-
-// Function to check multiplication answer
-function checkAnswer() {
-    const answer = parseInt(document.getElementById('answer').value);
-    const result = document.getElementById('multiplication-result');
-
-    if (answer === multiplicationNumber * multiplicationAnswer) {
-        result.textContent = 'Correct!';
-        result.style.color = 'green';
-        startMultiplicationGame(); // Start a new quiz
+        correctAnswers++; // Increment correct answers
     } else {
         result.textContent = 'Wrong! Try again.';
         result.style.color = 'red';
     }
+
+    // If all attempts are made, we won't need to show the next question
+    if (spellingAttempts < maxSpellingAttempts) {
+        document.getElementById('start-spelling-button').style.display = 'block'; // Show "Next" button
+        document.getElementById('start-spelling-button').textContent = 'Next'; // Change button text
+    } else {
+        startSpellingGame(); // Start the game over or show final results
+    }
 }
+
+// Function to shuffle an array using Fisher-Yates Shuffle
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Add event listener for the start button
+document.getElementById('start-spelling-button').addEventListener('click', startSpellingGame);
+
+// TIMES TABLE GAME:
+// Get elements
+const startMultiplicationButton = document.getElementById('start-multiplication-button');
+const submitAnswerButton = document.getElementById('submit-answer-button');
+const restartMultiplicationButton = document.getElementById('restart-multiplication-button');
+const questionContainer = document.getElementById('question-container');
+const multiplicationForm = document.getElementById('times-table-form');
+const questionElement = document.getElementById('question');
+const answerInput = document.getElementById('answer');
+const multiplicationResult = document.getElementById('multiplication-result');
+const numberChoiceInput = document.getElementById('number-choice');
+
+// Variables to store game state
+let correctAnswer = 0;
+let numberChoice = 0;
+let randomMultiplier = 0;
+let guessCount = 0;
+let totalQuestions = 6; // Total number of questions
+
+// Start the multiplication game
+startMultiplicationButton.addEventListener('click', startMultiplicationGame);
+
+// Submit answer event
+submitAnswerButton.addEventListener('click', checkAnswer);
+
+// Restart the game
+restartMultiplicationButton.addEventListener('click', resetGame);
+
+function startMultiplicationGame() {
+    // Get the chosen number from the input
+    numberChoice = parseInt(numberChoiceInput.value);
+    
+    if (isNaN(numberChoice) || numberChoice < 1 || numberChoice > 12) {
+        multiplicationResult.textContent = "Please choose a number between 1 and 12.";
+        return;
+    }
+    
+    // Reset the guess count
+    guessCount = 0;
+
+    // Hide the form and display the question container
+    multiplicationForm.style.display = 'none';
+    questionContainer.style.display = 'block';
+    multiplicationResult.textContent = '';  // Clear previous messages
+
+    // Ask the first question
+    askMultiplicationQuestion();
+}
+
+function askMultiplicationQuestion() {
+    if (guessCount < totalQuestions) {
+        // Generate a random number between 1 and 12
+        randomMultiplier = Math.floor(Math.random() * 12) + 1;
+
+        // Calculate the correct answer
+        correctAnswer = numberChoice * randomMultiplier;
+
+        // Display the question
+        questionElement.textContent = `What is ${numberChoice} x ${randomMultiplier}?`;
+    } else {
+        // If the user has answered all 6 questions, end the game
+        endGame();
+    }
+}
+
+function checkAnswer() {
+    // Get the user's answer
+    const userAnswer = parseInt(answerInput.value);
+
+    if (isNaN(userAnswer)) {
+        multiplicationResult.textContent = "Please enter a valid number.";
+        return;
+    }
+    
+    // Check if the answer is correct
+    if (userAnswer === correctAnswer) {
+        multiplicationResult.textContent = `Correct! (${guessCount + 1}/${totalQuestions})`;
+        multiplicationResult.style.color = "green";
+    } else {
+        multiplicationResult.textContent = `Incorrect. The correct answer was ${correctAnswer}. (${guessCount + 1}/${totalQuestions})`;
+        multiplicationResult.style.color = "red";
+    }
+
+    // Increment the guess count
+    guessCount++;
+
+    // Clear the answer input
+    answerInput.value = '';
+
+    // Ask the next question or end the game if 6 guesses are done
+    askMultiplicationQuestion();
+}
+
+function endGame() {
+    // Hide the question container
+    questionContainer.style.display = 'none';
+
+    // Display final message and restart button
+    multiplicationResult.textContent = `Great job! You've completed ${totalQuestions} questions!`;
+    multiplicationResult.style.color = "blue";
+    restartMultiplicationButton.style.display = 'block';
+}
+
+function resetGame() {
+    // Reset the game state
+    answerInput.value = '';
+    numberChoiceInput.value = '';
+    multiplicationResult.textContent = '';
+
+    // Reset button visibility
+    restartMultiplicationButton.style.display = 'none';
+    submitAnswerButton.style.display = 'block';
+    
+    // Show the form again
+    multiplicationForm.style.display = 'block';
+    questionContainer.style.display = 'none';
+}
+
 
 // Guess the Number Variables
 let randomNumber;
