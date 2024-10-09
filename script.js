@@ -286,3 +286,23 @@ function endGuessGame() {
 // Add event listeners
 document.getElementById('start-guess-button').addEventListener('click', startGuessGame);
 document.getElementById('submit-guess-button').addEventListener('click', handleGuess);
+
+
+
+// Subscribe to notifications
+document.getElementById('subscribe-button').addEventListener('click', function() {
+    const emailInput = document.getElementById('email-input');
+    const emailError = document.getElementById('email-error');
+
+    // Clear previous error message
+    emailError.style.display = 'none';
+
+    // Check if the email input is valid using the built-in checkValidity method
+    if (emailInput.checkValidity()) {
+        alert("Thank you for subscribing! You'll receive notifications at " + emailInput.value);
+        emailInput.value = ''; // Clear the input after successful subscription
+    } else {
+        emailError.textContent = 'Please enter a valid email address.';
+        emailError.style.display = 'block'; // Show the error message
+    }
+});
